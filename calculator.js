@@ -2,13 +2,28 @@ class Calculator {
     constructor(topText, bottomText) {
         this.topText = topText
         this.bottomText = bottomText
+        this.isOff = false
         this.clear()
     }
     
     clear() {
+        if (this.isOff) {
+            this.isOff = false
+        }
         this.top = ""
         this.bottom = ""
         this.operator = undefined
+    }
+
+    off() {
+        this.isOff = true
+        this.top = ""
+        this.bottom = "Goodbye"
+        this.update()
+        setTimeout(() => {
+            this.bottom = ""
+            this.update()
+        }, 3000)
     }
 
     delete() {
@@ -83,6 +98,7 @@ const calc = new Calculator(topText, bottomText)
 
 numButtons.forEach(button => {
     button.addEventListener('click', () => {
+        if (calc.isOff) return
         calc.addNumber(button.innerText)
         calc.update()
     })
@@ -90,12 +106,14 @@ numButtons.forEach(button => {
 
 operatorButtons.forEach(button => {
     button.addEventListener('click', () => {
+        if (calc.isOff) return
         calc.selectOperator(button.innerText)
         calc.update()
     })
 })
 
 equalsButton.addEventListener('click', button => {
+    if (calc.isOff) return
     calc.compute()
     calc.update()
 })
@@ -106,11 +124,17 @@ clearButton.addEventListener('click', button => {
 })
 
 deleteButton.addEventListener('click', button => {
+    if (calc.isOff) return
     calc.delete()
     calc.update()
 })
 
 greetButton.addEventListener('click', button =>{
+    if (calc.isOff) return
     calc.greet()
     calc.update()
+})
+
+endButton.addEventListener('click', button => {
+    calc.off()
 })
