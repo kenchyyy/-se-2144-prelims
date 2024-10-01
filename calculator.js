@@ -52,7 +52,11 @@ class Calculator {
         if (isNaN(topValue) || isNaN(bottomValue)) return
         switch (this.operator) {
             case "÷":
-                computation = topValue / bottomValue
+                if (bottomValue === 0) {
+                    computation = "Error"
+                } else {
+                    computation = topValue / bottomValue
+                }
                 break
             case "+":
                 computation = topValue + bottomValue
