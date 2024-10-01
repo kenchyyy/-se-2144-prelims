@@ -80,6 +80,7 @@ class Calculator {
         const greeting = ["Hola!", "Kumusta", "안녕"]
         const randomGreeting = greeting[Math.floor(Math.random() * greeting.length)]
         this.bottom = randomGreeting
+        this.top = ""
     }
 }
 
