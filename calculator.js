@@ -20,10 +20,6 @@ class Calculator {
         this.top = ""
         this.bottom = "Goodbye"
         this.update()
-        setTimeout(() => {
-            this.bottom = ""
-            this.update()
-        }, 3000)
     }
 
     delete() {
@@ -54,6 +50,10 @@ class Calculator {
             case "÷":
                 if (bottomValue === 0) {
                     computation = "Error"
+                    setTimeout(() => {
+                        computation = ""
+                        this.update()
+                    }, 1000)
                 } else {
                     computation = topValue / bottomValue
                 }
@@ -85,6 +85,7 @@ class Calculator {
         const randomGreeting = greeting[Math.floor(Math.random() * greeting.length)]
         this.bottom = randomGreeting
         this.top = ""
+        this.isOff = true
     }
 }
 
@@ -135,7 +136,9 @@ deleteButton.addEventListener('click', button => {
 })
 
 greetButton.addEventListener('click', button =>{
-    if (calc.isOff) return
+    if (calc.isOff) {
+        calc.isOff = false
+    }
     calc.greet()
     calc.update()
 })
